@@ -15,6 +15,7 @@ import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Create from "@mui/icons-material/Create";
+import { Link } from "react-router-dom";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -86,7 +87,7 @@ const MobileSearchInput = styled(InputBase)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
 }));
 
-function ResponsiveAppBar() {
+function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
 
@@ -132,19 +133,19 @@ function ResponsiveAppBar() {
 
             <Box sx={{ flexGrow: 1 }} />
 
-            <Box sx={{ display: "flex", alignItems: "center",color: "#000" }}>
+            <Box sx={{ display: "flex", alignItems: "center", color: "#000" }}>
               <Box
                 sx={{
                   display: { xs: "flex", sm: "none" },
                   alignItems: "center",
                 }}
               >
-                <IconButton color="inherit" onClick={toggleSearchBar}>
+                <IconButton onClick={toggleSearchBar}>
                   <SearchIcon />
                 </IconButton>
               </Box>
 
-              <IconButton color="inherit">
+              <IconButton component={Link} to="/new-story" color="inherit">
                 <Create />
                 <Typography variant="body2" sx={{ ml: 1 }}>
                   Create
@@ -204,4 +205,4 @@ function ResponsiveAppBar() {
   );
 }
 
-export default ResponsiveAppBar;
+export default NavBar;
