@@ -15,7 +15,9 @@ import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Create from "@mui/icons-material/Create";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLoggedOut } from "../features/authSlice";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -90,14 +92,19 @@ const MobileSearchInput = styled(InputBase)(({ theme }) => ({
 function NavBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleCloseUserMenu = (settings) => {
+    if (settings === "Logout") {
+      dispatch(userLoggedOut());
+      navigate("/login", { replace: true });
+    } else {
+      setAnchorElUser(null);
+    }
   };
-
   const toggleSearchBar = () => {
     setIsSearchOpen((prev) => !prev);
   };
@@ -184,7 +191,10 @@ function NavBar() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      key={setting}
+                      onClick={() => handleCloseUserMenu(setting)}
+                    >
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
