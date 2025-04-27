@@ -107,12 +107,14 @@ function NavBar() {
       <AppBar position="static" sx={{ backgroundColor: "#fff" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <img
-              src="/images/logo.png"
-              width={120}
-              height={50}
-              alt="Viblog Logo"
-            />
+            <Link to="/home">
+              <img
+                src="/images/logo.png"
+                width={120}
+                height={50}
+                alt="Viblog Logo"
+              />
+            </Link>
             <Box
               sx={{
                 display: { xs: "none", sm: "flex" },

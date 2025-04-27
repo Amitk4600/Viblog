@@ -44,7 +44,6 @@ function Login() {
         setOpen(true);
       });
   };
-
   useEffect(() => {
     if (isSuccess) {
       navigate("/home", { replace: true });
