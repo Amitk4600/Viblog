@@ -56,7 +56,6 @@ function Login() {
     margin: "150px auto",
     width: "90%",
     borderRadius: 10,
-    
   };
   const buttonStyle = {
     margin: "8px 0",
