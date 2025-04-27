@@ -14,14 +14,16 @@ import {
   Alert,
 } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoginUserMutation } from "../../features/api/authApi";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [loginInput, setLoginInput] = useState({ email: "", password: "" });
   const [open, setOpen] = useState(false);
   const [loginUser, { data, error, isLoading, isSuccess }] =
     useLoginUserMutation();
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginInput({ ...loginInput, [name]: value });
@@ -34,14 +36,20 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoginInput({ email: "", password: "" });
     loginUser(loginInput)
       .unwrap()
-      .then(() => {
+      .then((response) => {
+        localStorage.setItem("username", response.user.name);
         setLoginInput({ email: "", password: "" });
         setOpen(true);
       });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/home", { replace: true });
+    }
+  }, [isSuccess, navigate]);
   const paperStyle = {
     padding: 20,
     height: "auto",
@@ -124,13 +132,13 @@ function Login() {
           {isLoading ? <CircularProgress /> : "Login"}
         </Button>
         <Typography style={typographyStyle}>
-          <Link href="#" style={linkStyle}>
+          <Link to="#" style={linkStyle}>
             Forget Password?
           </Link>
         </Typography>
         <Typography style={typographyStyle}>
           Don't have an account?{" "}
-          <Link style={linkStyle} href="#">
+          <Link style={linkStyle} to="#">
             Sign Up
           </Link>
         </Typography>
