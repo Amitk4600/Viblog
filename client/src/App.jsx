@@ -6,10 +6,8 @@ import Registration from "./pages/users/Registration";
 import NewStory from "./pages/users/NewStory";
 import Feed from "./pages/Feed";
 
-
 function App() {
   return (
-    
     <div className="container mx-auto">
       <Routes>
         <Route path="/" element={<Landing />} />
