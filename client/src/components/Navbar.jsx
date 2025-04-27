@@ -35,7 +35,7 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
   [theme.breakpoints.down("xs")]: {
-    display: "none", 
+    display: "none",
   },
 }));
 
@@ -99,6 +99,9 @@ function NavBar() {
     if (settings === "Logout") {
       dispatch(userLoggedOut());
       navigate("/", { replace: true });
+    }
+    if (settings === "Story") {
+      navigate("/stories", { replace: true });
     } else {
       setAnchorElUser(null);
     }
