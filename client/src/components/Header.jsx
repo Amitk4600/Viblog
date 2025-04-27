@@ -7,6 +7,7 @@ function Header({ isModalOpen, setShowLogin }) {
     { title: "Write", path: "/login" },
   ];
 
+  
   return (
     <header>
       <nav className="items-center pt-5 px-4 mx-auto max-w-screen-xl sm:px-8 sm:flex sm:space-x-6">
