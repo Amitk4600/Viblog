@@ -8,7 +8,6 @@ function NewStory() {
     if (editorRef.current) {
       const content = editorRef.current.getContent();
       console.log("Published Content:", content);
-      // Yahan aap API call ya localStorage mein save karne ka logic likh sakte hain
     }
   };
 
