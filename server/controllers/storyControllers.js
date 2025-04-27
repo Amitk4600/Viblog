@@ -1,3 +1,5 @@
+import NewStory from "../models/newStoryModel";
+
 export const createStory = async (req, res) => {
   const { title, content } = req.body;
   try {
