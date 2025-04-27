@@ -100,7 +100,7 @@ function NavBar() {
   const handleCloseUserMenu = (settings) => {
     if (settings === "Logout") {
       dispatch(userLoggedOut());
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
     } else {
       setAnchorElUser(null);
     }
