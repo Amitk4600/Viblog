@@ -19,7 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "../features/authSlice";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Story", "Logout"];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -35,7 +35,7 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
   [theme.breakpoints.down("xs")]: {
-    display: "none", // Hide the full search bar in mobile view by default
+    display: "none", 
   },
 }));
 
@@ -64,8 +64,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-// New styled component for the mobile search bar
 const MobileSearchBar = styled("div")(({ theme }) => ({
   position: "absolute",
   top: "100%", // Position it below the AppBar
