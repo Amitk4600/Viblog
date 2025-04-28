@@ -1,23 +1,25 @@
-import jwt from 'jsonwebtoken';
-import { User } from '../models/userModel.js';
-export const isAuthenticated = async (req, res, next) => { 
+import jwt from "jsonwebtoken";
+import { User } from "../models/userModel.js";
+
+export const isAuthenticated = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
+    const token = req.cookies.token;
     if (!token) {
       return res.status(401).json({
         success: false,
         message: "Not authorized, no token",
       });
     }
-    const decoded = jwt.verify(token.process.env.SECRET_KEY);
-    req.user = await User.findById(decoded.id).select("-password");
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+   const user = await User.findById(decoded.userId).select("-password");
 
-    if (!req.user) {
+    if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Not authorized, no user",
+        message: " no user found",
       });
     }
+    req.user = user;
     next();
   } catch (error) {
     console.log(error);
@@ -26,4 +28,4 @@ export const isAuthenticated = async (req, res, next) => {
       message: "Not authorized, invalid token",
     });
   }
-}
+};

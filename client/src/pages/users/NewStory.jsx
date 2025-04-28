@@ -1,25 +1,23 @@
-import React, { useRef } from "react";
-import { Editor } from "@tinymce/tinymce-react";
-import Navbar from "../../components/Navbar";
 import {
-  TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
   Chip,
+  FormControl,
+  InputLabel,
+  MenuItem,
   OutlinedInput,
+  Select,
+  TextField,
 } from "@mui/material";
+import { Editor } from "@tinymce/tinymce-react";
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
+import api from "../../config/axios";
+
 function NewStory() {
   const editorRef = useRef(null);
   const [title, setTitle] = React.useState("");
   const [tags, setTags] = React.useState([]);
-  const handlePublish = () => {
-    if (editorRef.current) {
-      const content = editorRef.current.getContent();
-      console.log("Published Content:", content);
-    }
-  };
+  const navigate = useNavigate();
   const availableTags = [
     "Programming",
     "Design",
@@ -33,12 +31,40 @@ function NewStory() {
     "Entertainment",
   ];
 
-
   const handleTagChange = (event) => {
     const {
       target: { value },
     } = event;
     setTags(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const handlePublish = async () => {
+    if (editorRef.current) {
+      const content = editorRef.current.getContent();
+      try {
+        const response = await api.post(
+          "/api/user/story/create",
+          {
+            title,
+            content,
+            tags: tags, 
+            image: "", 
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Published Content:", response.data);
+        navigate("/stories");
+      } catch (error) {
+        console.error(
+          "Error publishing story:",
+          error.response?.data || error.message
+        );
+      }
+    }
   };
   return (
     <>
@@ -129,6 +155,5 @@ function NewStory() {
     </>
   );
 }
-
 
 export default NewStory;

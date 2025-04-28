@@ -9,6 +9,7 @@ const NewStorySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    minlength:[5, "Title must be at least 5 characters"],
   },
   content: {
     type: String,
@@ -16,7 +17,7 @@ const NewStorySchema = new mongoose.Schema({
   },  
   image: {
     type: String,
-    required: true,
+    required: false,
   },
   createdAt: {
     type: Date,
@@ -30,6 +31,12 @@ const NewStorySchema = new mongoose.Schema({
     {
       type: String,
       required: true,
+      validate: {
+        validator: function (v) {
+          return Array.isArray(v)&& v.length > 0;
+        },
+        message: "Tags must be an array with at least one element",
+      }
     },
   ],
   comments: [

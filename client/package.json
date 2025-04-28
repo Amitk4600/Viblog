@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^2.7.0",
     "@tailwindcss/vite": "^4.1.4",
     "@tinymce/tinymce-react": "^6.1.0",
+    "axios": "^1.9.0",
     "install": "^0.13.0",
     "quill": "^2.0.3",
     "react": "^19.0.0",
