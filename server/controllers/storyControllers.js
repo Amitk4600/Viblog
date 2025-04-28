@@ -1,16 +1,21 @@
-import NewStory from "../models/newStoryModel";
+import NewStory from "../models/newStoryModele.js";
 
 export const createStory = async (req, res) => {
-  const { title, content } = req.body;
   try {
-    const story = await NewStory.create({
+    const { title, content, tags } = req.body;
+    const userId = req.user._id;
+
+    // image upload logic ------
+    const newStory = new NewStory({
+      user: userId,
       title,
       content,
-      author: req.user._id,
+      tags,
+      // image:imageUrl,
     });
-    res.status(201).json(story);
-
+    await newStory.save();
+    res.status(201).json({ msg: "Story created successfully", newStory });
   } catch (error) {
-    res.status(400).json({msg: "Error creating story", error});
+    res.status(400).json({ msg: "Error creating story", error });
   }
 };

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./database/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import storyRoutes from "./routes/storyRoutes.js";
 import cookieParser from "cookie-parser";
 dotenv.config({});
 connectDB();
@@ -16,4 +17,5 @@ app.use(cors({
     credentials: true,
 }));
 app.use("/api/user", userRoutes);
+app.use("/api", storyRoutes);
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
